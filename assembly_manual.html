@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>壁挂式国际象棋棋盘 · 拼装手册</title>
+  <style>
+    :root { --ink:#17202b; --muted:#667085; --paper:#f7f8fa; --card:#fff; --line:#d9dee7; --gold:#c99336; --black:#16191e; --white:#f4f1e9; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family: "Segoe UI", "Microsoft YaHei", sans-serif; line-height:1.55; }
+    .page { max-width:1060px; margin:0 auto; padding:38px 42px 60px; }
+    .hero { display:flex; gap:28px; align-items:flex-start; border-bottom:1px solid var(--line); padding-bottom:28px; }
+    .eyebrow { color:var(--gold); font-weight:700; letter-spacing:.12em; text-transform:uppercase; font-size:12px; }
+    h1 { margin:8px 0 10px; font-size:34px; letter-spacing:-.02em; }
+    h2 { margin:0 0 12px; font-size:20px; }
+    p { margin:6px 0 12px; }
+    .lede { color:var(--muted); max-width:610px; }
+    .badge { display:inline-block; padding:5px 9px; border-radius:999px; background:#f0e3c9; color:#6c4b13; font-size:12px; font-weight:700; margin:3px 4px 0 0; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:22px 24px; margin-top:24px; box-shadow:0 4px 20px rgba(16,24,40,.04); }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .parts { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:15px; }
+    .part { border:1px solid var(--line); border-radius:6px; padding:13px 12px; background:#fcfcfd; }
+    .part strong { display:block; font-size:22px; }
+    .part small { color:var(--muted); }
+    table { width:100%; border-collapse:collapse; font-size:14px; }
+    th,td { padding:9px 8px; text-align:left; border-bottom:1px solid var(--line); }
+    th { color:var(--muted); font-weight:600; }
+    .steps { counter-reset:step; display:grid; gap:13px; }
+    .step { display:grid; grid-template-columns:34px 1fr; gap:12px; align-items:start; }
+    .step:before { counter-increment:step; content:counter(step); width:30px; height:30px; border-radius:50%; display:grid; place-items:center; background:var(--ink); color:#fff; font-weight:700; }
+    .step b { display:block; margin-bottom:2px; }
+    .note { background:#fff7e8; border-color:#ead3a3; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size:12px; }
+    .diagram { width:100%; height:auto; display:block; background:#fbfbfc; border:1px solid var(--line); border-radius:8px; }
+    footer { color:var(--muted); font-size:12px; margin-top:28px; display:flex; justify-content:space-between; gap:20px; }
+    @media (max-width:760px) { .page{padding:24px 18px 42px;} .hero{display:block;} .grid{grid-template-columns:1fr;} .parts{grid-template-columns:repeat(2,1fr);} h1{font-size:28px;} }
+    @media print { body{background:#fff;} .page{max-width:none;padding:12mm;} .card{box-shadow:none;break-inside:avoid;} }
+  </style>
+</head>
+<body>
+<main class="page">
+  <header class="hero">
+    <div>
+      <div class="eyebrow">WALL CHESS · A1 MINI EDITION</div>
+      <h1>壁挂式国际象棋棋盘<br>拼装手册</h1>
+      <p class="lede">八个相同的黑色模块组成 2×4 棋盘。每个棋格净尺寸为 28×56 mm；每层是一整条连续平台，黑白格之间没有隔条，平台前缘也没有栏杆。白色嵌块单独打印，嵌入黑色面板后与黑格齐平。</p>
+      <span class="badge">不需要 AMS</span><span class="badge">黑白分开打印</span><span class="badge">64 个磁铁孔</span>
+    </div>
+  </header>
+
+  <section class="card">
+    <h2>成品与打印清单</h2>
+    <div class="parts">
+      <div class="part"><strong>8×</strong><small>黑色模块<br>112×122×34 mm</small></div>
+      <div class="part"><strong>32×</strong><small>白色嵌块<br>28×56×3.2 mm</small></div>
+      <div class="part"><strong>12×</strong><small>蝴蝶形卡扣<br>40×20×5.6 mm<br>模块 10 + 收纳盒 2</small></div>
+      <div class="part"><strong>1×</strong><small>LAST MOVE 标识牌<br>7×26×6 mm（带挂钩）</small></div>
+      <div class="part"><strong>1×</strong><small>棋子收纳盒<br>160×55×45 mm，8 mm 壁厚</small></div>
+      <div class="part"><strong>64×</strong><small>磁铁孔<br>Ø4 × 4 mm</small></div>
+      <div class="part"><strong>2×4</strong><small>模块排列<br>整板 224×488 mm</small></div>
+    </div>
+    <p class="mono">文件：WallChessBoard.FCStd · exports/black_module.stl · exports/white_tile.stl · exports/butterfly_clip.stl · exports/last_move_marker.stl · exports/storage_box.stl · exports/storage_box.step · wall_chess_board_assembly.step</p>
+  </section>
+
+  <section class="card">
+    <h2>模块排列</h2>
+    <svg class="diagram" viewBox="0 0 820 530" role="img" aria-label="8个模块的2列4行装配示意；黑白格无隔条，每一行有一整条平台">
+      <defs>
+        <pattern id="checks" x="0" y="0" width="56" height="122" patternUnits="userSpaceOnUse">
+          <rect x="28" y="5" width="28" height="56" fill="#f4f1e9"/>
+          <rect x="0" y="66" width="28" height="56" fill="#f4f1e9"/>
+        </pattern>
+      </defs>
+      <g transform="translate(170 18)">
+        <rect width="224" height="488" fill="#171b20"/>
+        <rect width="224" height="488" fill="url(#checks)"/>
+        <path d="M0 2.5H224 M0 63.5H224 M0 124.5H224 M0 185.5H224 M0 246.5H224 M0 307.5H224 M0 368.5H224 M0 429.5H224" stroke="#383f46" stroke-width="5"/>
+        <rect width="224" height="488" fill="none" stroke="#171b20" stroke-width="2"/>
+      </g>
+      <g stroke="#c99336" stroke-width="2"><path d="M154 18h10 M154 140h10 M154 262h10 M154 384h10 M154 506h10"/></g>
+      <g fill="#17202b" font-family="Segoe UI,Microsoft YaHei,sans-serif">
+        <text x="450" y="48" font-size="17" font-weight="700">2 列 × 4 行模块</text>
+        <text x="450" y="80" font-size="14">每模块：4 列 × 2 行</text>
+        <text x="450" y="110" font-size="14">棋格净尺寸：28 × 56 mm</text>
+        <text x="450" y="140" font-size="14">模块：112 × 122 × 34 mm</text>
+        <text x="450" y="170" font-size="14">整板：224 × 488 mm</text>
+        <text x="450" y="228" font-size="14" fill="#667085">每行一条连续平台，宽 112 mm；行距 61 mm。</text>
+        <text x="450" y="255" font-size="14" fill="#667085">黑白格之间没有竖向隔条。</text>
+        <text x="450" y="282" font-size="14" fill="#667085">白块占满白色单元，周围没有边墙；底部四孔由定位柱固定。</text>
+        <text x="450" y="345" font-size="13" fill="#667085">左侧刻线标出四排模块位置。</text>
+      </g>
+    </svg>
+  </section>
+
+  <div class="grid">
+    <section class="card">
+      <h2>安装顺序</h2>
+      <div class="steps">
+        <div class="step"><div><b>打印黑色模块</b><span>打印同一文件 8 份。模块平放，背面贴在打印平台；黑格和两层连续平台已包含在模块里。</span></div></div>
+        <div class="step"><div><b>打印白色嵌块</b><span>打印白色小块 32 份。每块为完整白色单元尺寸，底面有 4 个定位盲孔。</span></div></div>
+        <div class="step"><div><b>压入磁铁</b><span>每个格下的平台有 1 个 Ø4×4 mm 盲孔，共 64 个。磁铁顶部应与平台齐平或略低；先统一磁极方向。</span></div></div>
+        <div class="step"><div><b>嵌入白色小块</b><span>把白块放入黑色框架的完整白格开口，底面贴住背板；四个盲孔分别套入黑色定位柱，表面与黑格齐平。</span></div></div>
+        <div class="step"><div><b>装入蝴蝶卡扣</b><span>在相邻模块的边缘卡槽中插入 10 个蝴蝶形卡扣：竖向接缝 4 个，横向接缝 6 个。</span></div></div>
+        <div class="step"><div><b>挂上 LAST MOVE 标识牌</b><span>将挂钩扣住第一层平台外侧倒角边，牌体位于两个棋子中心之间，宽 7 mm，不进入棋子的圆柱体范围。</span></div></div>
+        <div class="step"><div><b>安装棋子收纳盒</b><span>将 160×55×45 mm 的黑色开口盒放在整板底部，开口朝前；盒顶两个卡槽对准棋盘底边，在 x=56 和 x=168 mm 位置各插入 1 个蝴蝶卡扣。</span></div></div>
+        <div class="step"><div><b>挂墙与调平</b><span>每个模块背面有左右两个钥匙孔挂点。按 2 列 × 4 行定位，先固定上排，再依次向下装配并调平。</span></div></div>
+      </div>
+    </section>
+    <section class="card">
+      <h2>关键尺寸与余量</h2>
+      <table>
+        <tr><th>项目</th><th>尺寸</th></tr>
+        <tr><td>棋格净尺寸</td><td>28 × 56 mm</td></tr>
+        <tr><td>单格平台宽度</td><td>28 mm，整条 112 mm</td></tr>
+        <tr><td>平台伸出深度</td><td>20 mm</td></tr>
+        <tr><td>平台厚度</td><td>5 mm</td></tr>
+        <tr><td>平台长边倒角</td><td>两条，1.5 mm</td></tr>
+        <tr><td>棋王高度 / 直径</td><td>50 / 20 mm</td></tr>
+        <tr><td>可用净高</td><td>56 mm</td></tr>
+        <tr><td>行间距</td><td>61 mm（56 mm 净高 + 5 mm 平台带）</td></tr>
+        <tr><td>白色嵌块</td><td>28 × 56 × 3.2 mm</td></tr>
+        <tr><td>白格周边边墙</td><td>0 mm（完全取消）</td></tr>
+        <tr><td>定位柱</td><td>直径 3 mm、高 2.4 mm，每块白块 4 个</td></tr>
+        <tr><td>定位盲孔</td><td>直径 3.5 mm、深 2.65 mm</td></tr>
+        <tr><td>LAST MOVE 标识牌</td><td>7 × 26 × 6 mm，带平台挂钩，位于棋子间隙</td></tr>
+        <tr><td>棋子收纳盒</td><td>160 × 55 × 45 mm，8 mm 壁厚，前侧开口</td></tr>
+        <tr><td>收纳盒挂接</td><td>2 个蝴蝶卡扣，挂在整板底边 x=56 / 168 mm</td></tr>
+        <tr><td>黑色后背板</td><td>14 mm；卡扣槽后约 9 mm</td></tr>
+      </table>
+      <p class="lede">平台顶部到下一层平台下缘的净高为 56 mm，给 50 mm 高的棋王保留约 6 mm 余量。平台伸出 20 mm，磁铁孔位于平台深度中线，从平台上表面向下 4 mm，孔底保留 1 mm 材料。</p>
+    </section>
+  </div>
+
+  <section class="card note">
+    <h2>墙面固定提示</h2>
+    <p>钥匙孔位于模块背面，圆口直径 8 mm，窄槽宽 4.2 mm；螺钉头进入圆口后向上滑入背部宽槽，螺钉杆留在窄槽内。先用一块模块试装并确认螺钉头厚度与槽深匹配。墙体材质不同，螺钉和膨胀管请按实际墙体选用；每个模块建议使用左右两个挂点。</p>
+  </section>
+
+  <footer><span>WallChessBoard · 参数化 FreeCAD 设计</span><span>所有尺寸单位：mm</span></footer>
+</main>
+</body>
+</html>

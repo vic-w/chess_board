@@ -1,0 +1,157 @@
+{
+  "units": "mm",
+  "cell": {
+    "width": 28.0,
+    "height": 56.0,
+    "pitch": [
+      28.0,
+      61.0
+    ],
+    "clear_height": 56.0
+  },
+  "module": {
+    "width": 112.0,
+    "height": 122.0,
+    "layout": "4 x 2",
+    "quantity": 8,
+    "bbox": {
+      "x": 112.0,
+      "y": 122.0,
+      "z": 34.003
+    },
+    "back_wall_thickness": 14.0,
+    "white_cell_perimeter_wall": 0.0,
+    "position_posts_per_white_tile": 4
+  },
+  "board": {
+    "width": 224.0,
+    "height": 488.0,
+    "layout": "2 x 4 modules"
+  },
+  "white_tile": {
+    "quantity": 32,
+    "bbox": {
+      "x": 28.0,
+      "y": 56.0,
+      "z": 3.201
+    },
+    "position_holes_per_tile": 4,
+    "position_hole_diameter": 3.5,
+    "position_hole_depth": 2.65
+  },
+  "butterfly_connector": {
+    "quantity": 12,
+    "board_seam_quantity": 10,
+    "storage_clip_quantity": 2,
+    "bbox": {
+      "x": 40.0,
+      "y": 20.0,
+      "z": 4.8
+    },
+    "span": 40.0,
+    "thickness": 4.8,
+    "clearance": 0.35
+  },
+  "last_move_marker": {
+    "quantity": 1,
+    "material": "white PLA",
+    "bbox": {
+      "x": 24.0,
+      "y": 14.0,
+      "z": 9.5
+    },
+    "placement": [
+      16.0,
+      -5.0,
+      28.0
+    ],
+    "clip_width": 6.0,
+    "slot_height": 5.4,
+    "text": "LAST MOVE",
+    "engraving_depth": 0.7,
+    "print_orientation": "lettered face down",
+    "purpose": "C-clip captures both sides of platform without colliding with pieces"
+  },
+  "storage_box": {
+    "quantity": 1,
+    "bbox": {
+      "x": 168.0,
+      "y": 76.0,
+      "z": 68.0
+    },
+    "placement": [
+      28.0,
+      -76.0,
+      0.0
+    ],
+    "side_and_front_wall": 4.0,
+    "back_wall": 8.0,
+    "floor": 5.0,
+    "front_height": 56.0,
+    "retaining_height_above_floor": 51.0,
+    "front_corner_radius": 12.0,
+    "opening": "top (+Y)",
+    "front_closed": true,
+    "rim_below_board": 20.0,
+    "print_footprint": [
+      168.0,
+      68.0
+    ],
+    "mounting": "two butterfly clips at board bottom edge"
+  },
+  "shelves": {
+    "per_module": 2,
+    "total": 16,
+    "continuous_across_four_cells": true,
+    "thickness": 5.0,
+    "depth": 20.0,
+    "chamfer": 1.5,
+    "chamfered_long_edges": 2,
+    "front_rails": false,
+    "row_pitch": 61.0
+  },
+  "magnet_pockets": {
+    "quantity": 64,
+    "diameter": 4.0,
+    "depth": 4.0,
+    "axis": "Y (platform thickness)",
+    "center_z": 24.0
+  },
+  "king_clearance": {
+    "piece_height": 50.0,
+    "piece_diameter": 20.0,
+    "clear_height": 56.0
+  },
+  "black_white_dividers": false,
+  "print_material": "black and white PLA; no AMS required",
+  "a1_mini_fit": {
+    "module_xy": [
+      112.0,
+      122.0
+    ],
+    "box_xy": [
+      168.0,
+      68.0
+    ],
+    "max_xy": [
+      180.0,
+      180.0
+    ],
+    "fits": true
+  },
+  "files": [
+    "WallChessBoard.FCStd",
+    "exports/black_module.stl",
+    "exports/white_tile.stl",
+    "exports/butterfly_clip.stl",
+    "exports/last_move_marker.stl",
+    "exports/storage_box.stl",
+    "exports/black_module.step",
+    "exports/white_tile.step",
+    "exports/butterfly_clip.step",
+    "exports/last_move_marker.step",
+    "exports/storage_box.step",
+    "exports/wall_chess_board_assembly.step",
+    "assembly_manual.html"
+  ]
+}
