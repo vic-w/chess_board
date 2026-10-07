@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>壁挂式国际象棋棋盘 · 拼装手册</title>
   <style>
-    :root { --ink:#17202b; --muted:#667085; --paper:#f7f8fa; --card:#fff; --line:#d9dee7; --gold:#c99336; --black:#16191e; --white:#f4f1e9; }
+    :root { --ink:#252b2e; --muted:#686d6e; --paper:#f3f1ec; --card:#fdfcf9; --line:#ddd9d1; --gold:#9a8155; --black:#16191e; --white:#f4f1e9; }
     * { box-sizing:border-box; }
     body { margin:0; background:var(--paper); color:var(--ink); font-family: "Segoe UI", "Microsoft YaHei", sans-serif; line-height:1.55; }
     .page { max-width:1060px; margin:0 auto; padding:38px 42px 60px; }
@@ -32,6 +32,11 @@
     .note { background:#fff7e8; border-color:#ead3a3; }
     .mono { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size:12px; }
     .diagram { width:100%; height:auto; display:block; background:#fbfbfc; border:1px solid var(--line); border-radius:8px; }
+    .preview { width:100%; display:block; border-radius:10px; margin-top:24px; }
+    .caption { color:var(--muted); font-size:13px; margin:12px 0 24px; }
+    .detail { border-top:3px solid var(--ink); }
+    .detail .eyebrow { margin-bottom:10px; }
+    a { color:#705c38; text-underline-offset:3px; }
     footer { color:var(--muted); font-size:12px; margin-top:28px; display:flex; justify-content:space-between; gap:20px; }
     @media (max-width:760px) { .page{padding:24px 18px 42px;} .hero{display:block;} .grid{grid-template-columns:1fr;} .parts{grid-template-columns:repeat(2,1fr);} h1{font-size:28px;} }
     @media print { body{background:#fff;} .page{max-width:none;padding:12mm;} .card{box-shadow:none;break-inside:avoid;} }
@@ -48,14 +53,36 @@
     </div>
   </header>
 
+  <img class="preview" src="previews/accessories.png" alt="从交付 FreeCAD 实体生成的预览：整板、带完整前挡板的圆角收纳盒、LAST MOVE 字牌正面和背面的 C 形夹">
+  <p class="caption">实模预览 · 圆角、收口与文字均已建入实体。字牌凹字展示黑色填色效果，可打印后用细头油漆笔填色，无需 AMS。</p>
+
+  <div class="grid">
+    <section class="card detail">
+      <div class="eyebrow">01 / OPEN-TOP STORAGE</div>
+      <h2>圆角收纳盒 · 上取式</h2>
+      <p>完整前挡板连接两侧与盒底，挡板高 56 mm，内部有效挡高 51 mm。前角为 R12 圆弧，盒口做 R0.8 圆角，底边作 1.5 mm 倒角。</p>
+      <p>盒口低于棋盘底边 20 mm，向前伸出 68 mm；从前半部上方取放棋子。背板藏在棋盘下方，用两个蝴蝶卡扣连接。</p>
+      <p class="caption">168 × 76 × 68 mm（宽 × 总高 × 深）<br>侧壁 / 前挡板 4 mm · 底板 5 mm · 挂接背板 8 mm</p>
+      <a href="exports/storage_box.stl">下载收纳盒 STL</a> · <a href="exports/storage_box.step">STEP</a>
+    </section>
+    <section class="card detail">
+      <div class="eyebrow">02 / LAST MOVE</div>
+      <h2>白色字牌 · 窄幅 C 形夹</h2>
+      <p>24 × 14 mm 圆角牌面，正面刻有 LAST / MOVE 两行字，字高约 3.7 mm、凹深 0.7 mm。R3 轮廓搭配 0.5 mm 正面倒角。</p>
+      <p>背后的夹子宽 6 mm，进入相邻棋子的间隙；上下夹爪形成 5.4 mm 槽，从前方套住 5 mm 平台。牌面位于平台前缘之外。</p>
+      <p class="caption">白色 PLA 单独打印 · STL 已将字面朝下<br>建议 0.16 mm 层高；先试装夹口，再按打印机实际公差微调。</p>
+      <a href="exports/last_move_marker.stl">下载标记 STL</a> · <a href="exports/last_move_marker.step">STEP</a>
+    </section>
+  </div>
+
   <section class="card">
     <h2>成品与打印清单</h2>
     <div class="parts">
       <div class="part"><strong>8×</strong><small>黑色模块<br>112×122×34 mm</small></div>
       <div class="part"><strong>32×</strong><small>白色嵌块<br>28×56×3.2 mm</small></div>
-      <div class="part"><strong>12×</strong><small>蝴蝶形卡扣<br>40×20×5.6 mm<br>模块 10 + 收纳盒 2</small></div>
-      <div class="part"><strong>1×</strong><small>LAST MOVE 标识牌<br>7×26×6 mm（带挂钩）</small></div>
-      <div class="part"><strong>1×</strong><small>棋子收纳盒<br>160×55×45 mm，8 mm 壁厚</small></div>
+      <div class="part"><strong>12×</strong><small>蝴蝶形卡扣<br>40×20×4.8 mm<br>模块 10 + 收纳盒 2</small></div>
+      <div class="part"><strong>1×</strong><small>白色 LAST MOVE 字牌<br>24×14×9.5 mm（含 C 形夹）</small></div>
+      <div class="part"><strong>1×</strong><small>圆角棋子收纳盒<br>168×76×68 mm</small></div>
       <div class="part"><strong>64×</strong><small>磁铁孔<br>Ø4 × 4 mm</small></div>
       <div class="part"><strong>2×4</strong><small>模块排列<br>整板 224×488 mm</small></div>
     </div>
@@ -101,9 +128,9 @@
         <div class="step"><div><b>压入磁铁</b><span>每个格下的平台有 1 个 Ø4×4 mm 盲孔，共 64 个。磁铁顶部应与平台齐平或略低；先统一磁极方向。</span></div></div>
         <div class="step"><div><b>嵌入白色小块</b><span>把白块放入黑色框架的完整白格开口，底面贴住背板；四个盲孔分别套入黑色定位柱，表面与黑格齐平。</span></div></div>
         <div class="step"><div><b>装入蝴蝶卡扣</b><span>在相邻模块的边缘卡槽中插入 10 个蝴蝶形卡扣：竖向接缝 4 个，横向接缝 6 个。</span></div></div>
-        <div class="step"><div><b>挂上 LAST MOVE 标识牌</b><span>将挂钩扣住第一层平台外侧倒角边，牌体位于两个棋子中心之间，宽 7 mm，不进入棋子的圆柱体范围。</span></div></div>
-        <div class="step"><div><b>安装棋子收纳盒</b><span>将 160×55×45 mm 的黑色开口盒放在整板底部，开口朝前；盒顶两个卡槽对准棋盘底边，在 x=56 和 x=168 mm 位置各插入 1 个蝴蝶卡扣。</span></div></div>
-        <div class="step"><div><b>挂墙与调平</b><span>每个模块背面有左右两个钥匙孔挂点。按 2 列 × 4 行定位，先固定上排，再依次向下装配并调平。</span></div></div>
+        <div class="step"><div><b>打印与安装字牌</b><span>使用白色 PLA，导出的 STL 已字面朝下；凹字可用黑色油漆笔填色。将 6 mm 夹子对准两个棋子的间隙，从平台前方套入，让上下夹爪夹住平台，字面朝外。</span></div></div>
+        <div class="step"><div><b>打印与挂接收纳盒</b><span>STL 已按盒底朝下摆放，占地 168×68 mm，后部卡槽顶面可添加局部支撑。上墙前，将盒体居中放在整板下方，从背面在 x=56 / 168 mm 处压入两个卡扣。盒口朝上，前挡板朝外。</span></div></div>
+        <div class="step"><div><b>挂墙与调平</b><span>先平放完成模块和收纳盒的背部卡扣装配，再挂墙调平。每个模块背面有左右两个钥匙孔挂点；挂点与墙体紧固件须共同承托装配件和棋子。</span></div></div>
       </div>
     </section>
     <section class="card">
@@ -122,9 +149,12 @@
         <tr><td>白格周边边墙</td><td>0 mm（完全取消）</td></tr>
         <tr><td>定位柱</td><td>直径 3 mm、高 2.4 mm，每块白块 4 个</td></tr>
         <tr><td>定位盲孔</td><td>直径 3.5 mm、深 2.65 mm</td></tr>
-        <tr><td>LAST MOVE 标识牌</td><td>7 × 26 × 6 mm，带平台挂钩，位于棋子间隙</td></tr>
-        <tr><td>棋子收纳盒</td><td>160 × 55 × 45 mm，8 mm 壁厚，前侧开口</td></tr>
+        <tr><td>LAST MOVE 标识牌</td><td>24 × 14 × 9.5 mm，凹字 / 圆角 / C 形夹</td></tr>
+        <tr><td>标记夹口</td><td>宽 6 mm，槽高 5.4 mm，上下爪厚 2.4 mm</td></tr>
+        <tr><td>棋子收纳盒</td><td>168 × 76 × 68 mm，顶侧开口，前挡板高 56 mm</td></tr>
+        <tr><td>盒口与取放空间</td><td>盒口低于整板 20 mm，内挡高 51 mm</td></tr>
         <tr><td>收纳盒挂接</td><td>2 个蝴蝶卡扣，挂在整板底边 x=56 / 168 mm</td></tr>
+        <tr><td>蝴蝶卡扣厚度</td><td>4.8 mm，已校核与现有背部卡槽无实体干涉</td></tr>
         <tr><td>黑色后背板</td><td>14 mm；卡扣槽后约 9 mm</td></tr>
       </table>
       <p class="lede">平台顶部到下一层平台下缘的净高为 56 mm，给 50 mm 高的棋王保留约 6 mm 余量。平台伸出 20 mm，磁铁孔位于平台深度中线，从平台上表面向下 4 mm，孔底保留 1 mm 材料。</p>

@@ -608,7 +608,7 @@ def build_document():
 
 
 def shape_bbox(shape):
-    bb = shape.optimalBoundingBox()
+    bb = shape.optimalBoundingBox(False)
     return {"x": round(bb.XLength, 3), "y": round(bb.YLength, 3), "z": round(bb.ZLength, 3)}
 
 
@@ -645,7 +645,7 @@ def export_parts(doc, black_shape, white_shape, connector_shape, marker_shape, s
         ):
             printable = obj.Shape.copy()
             printable.rotate(v(0, 0, 0), axis, angle)
-            bb = printable.optimalBoundingBox()
+            bb = printable.optimalBoundingBox(False)
             printable.translate(v(-bb.XMin, -bb.YMin, -bb.ZMin))
             mesh = MeshPart.meshFromShape(Shape=printable, LinearDeflection=0.08,
                                          AngularDeflection=0.15, Relative=False)
@@ -691,6 +691,8 @@ def write_validation(black_shape, white_shape, connector_shape, marker_shape, st
             "exports/storage_box.step",
             "exports/wall_chess_board_assembly.step",
             "assembly_manual.html",
+            "previews/accessories.png",
+            "verification_results.json",
         ],
     }
     with open(os.path.join(ROOT, "validation_report.json"), "w", encoding="utf-8") as fh:

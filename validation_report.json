@@ -17,7 +17,7 @@
     "bbox": {
       "x": 112.0,
       "y": 122.0,
-      "z": 34.003
+      "z": 34.0
     },
     "back_wall_thickness": 14.0,
     "white_cell_perimeter_wall": 0.0,
@@ -33,7 +33,7 @@
     "bbox": {
       "x": 28.0,
       "y": 56.0,
-      "z": 3.201
+      "z": 3.2
     },
     "position_holes_per_tile": 4,
     "position_hole_diameter": 3.5,
@@ -152,6 +152,8 @@
     "exports/last_move_marker.step",
     "exports/storage_box.step",
     "exports/wall_chess_board_assembly.step",
-    "assembly_manual.html"
+    "assembly_manual.html",
+    "previews/accessories.png",
+    "verification_results.json"
   ]
 }

@@ -2,6 +2,8 @@
 import json
 import os
 import FreeCAD as App
+import Part
+import Mesh
 
 ROOT = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else os.getcwd()
 doc = App.openDocument(os.path.join(ROOT, "WallChessBoard.FCStd"))
@@ -23,8 +25,8 @@ checks["single_storage_solid"] = len(storage.Shape.Solids) == 1
 checks["black_bbox"] = [round(black.Shape.BoundBox.XLength, 3), round(black.Shape.BoundBox.YLength, 3), round(black.Shape.BoundBox.ZLength, 3)]
 checks["white_bbox"] = [round(white.Shape.BoundBox.XLength, 3), round(white.Shape.BoundBox.YLength, 3), round(white.Shape.BoundBox.ZLength, 3)]
 checks["connector_bbox"] = [round(connector.Shape.BoundBox.XLength, 3), round(connector.Shape.BoundBox.YLength, 3), round(connector.Shape.BoundBox.ZLength, 3)]
-checks["marker_bbox"] = [round(marker.Shape.BoundBox.XLength, 3), round(marker.Shape.BoundBox.YLength, 3), round(marker.Shape.BoundBox.ZLength, 3)]
-checks["storage_bbox"] = [round(storage.Shape.BoundBox.XLength, 3), round(storage.Shape.BoundBox.YLength, 3), round(storage.Shape.BoundBox.ZLength, 3)]
+checks["marker_bbox"] = [round(getattr(marker.Shape.optimalBoundingBox(False), a + "Length"), 3) for a in "XYZ"]
+checks["storage_bbox"] = [round(getattr(storage.Shape.optimalBoundingBox(False), a + "Length"), 3) for a in "XYZ"]
 checks["black_modules"] = len(doc.getObject("BlackParts").Group)
 checks["white_tiles"] = len(doc.getObject("WhiteParts").Group)
 checks["connectors"] = len(doc.getObject("ConnectorParts").Group)
@@ -79,23 +81,21 @@ checks["magnet_cylinder_faces"] = len([
     if hasattr(f.Surface, "Radius") and abs(f.Surface.Radius - 2.0) < 1e-6
 ])
 checks["eight_magnet_pockets"] = checks["magnet_cylinder_faces"] == 8
-checks["butterfly_clip_fits"] = connector.Shape.BoundBox.XLength == 40.0 and connector.Shape.BoundBox.YLength == 20.0 and connector.Shape.BoundBox.ZLength == 5.6
+checks["butterfly_clip_fits"] = checks["connector_bbox"] == [40.0, 20.0, 4.8]
 checks["connector_placements"] = all(abs(o.Placement.Base.z - 0.2) < 1e-6 for o in doc.getObject("ConnectorParts").Group)
 checks["last_move_marker_safe_gap"] = (
-    abs(doc.getObject("LastMoveMarker_01").Placement.Base.x - 24.5) < 1e-6
-    and abs(doc.getObject("LastMoveMarker_01").Placement.Base.y + 21.0) < 1e-6
-    and abs(doc.getObject("LastMoveMarker_01").Placement.Base.z - 31.0) < 1e-6
-    and marker.Shape.BoundBox.XLength == 7.0
-    and marker.Shape.BoundBox.YLength == 26.0
-    and marker.Shape.BoundBox.ZLength == 6.0
+    abs(doc.getObject("LastMoveMarker_01").Placement.Base.x - 16.0) < 1e-6
+    and abs(doc.getObject("LastMoveMarker_01").Placement.Base.y + 5.0) < 1e-6
+    and abs(doc.getObject("LastMoveMarker_01").Placement.Base.z - 28.0) < 1e-6
+    and checks["marker_bbox"] == [24.0, 14.0, 9.5]
 )
 checks["storage_box_dimensions"] = (
-    checks["storage_bbox"] == [160.0, 55.0, 45.0]
-    and float(params.StorageBoxWall) == 8.0
+    checks["storage_bbox"] == [168.0, 76.0, 68.0]
+    and float(params.StorageBoxWall) == 4.0
 )
 checks["storage_box_placement"] = (
-    abs(doc.getObject("StorageBox_01").Placement.Base.x - 32.0) < 1e-6
-    and abs(doc.getObject("StorageBox_01").Placement.Base.y + 55.0) < 1e-6
+    abs(doc.getObject("StorageBox_01").Placement.Base.x - 28.0) < 1e-6
+    and abs(doc.getObject("StorageBox_01").Placement.Base.y + 76.0) < 1e-6
     and abs(doc.getObject("StorageBox_01").Placement.Base.z) < 1e-6
 )
 checks["storage_connector_placements"] = (
@@ -103,6 +103,74 @@ checks["storage_connector_placements"] = (
     and [round(o.Placement.Base.x, 3) for o in doc.getObject("StorageConnectorParts").Group] == [56.0, 168.0]
     and all(abs(o.Placement.Base.y) < 1e-6 for o in doc.getObject("StorageConnectorParts").Group)
 )
+
+# These checks exercise the failures the old dimensional checks missed:
+# continuous retention walls, an accessible opening, and real mating solids.
+bin_shape = storage.Shape
+checks["storage_closed_front"] = all(
+    bin_shape.isInside(App.Vector(x, y, z), 1e-6, False)
+    for x in (20, 56, 84, 112, 148) for y in (10, 30, 53) for z in (64.5, 66, 67.5)
+)
+checks["storage_floor_and_sides"] = all(
+    bin_shape.isInside(App.Vector(*p), 1e-6, False)
+    for p in ((84, 2, 30), (2, 25, 30), (166, 25, 30), (84, 25, 4))
+)
+checks["storage_open_top"] = all(
+    not bin_shape.isInside(App.Vector(x, y, z), 1e-6, False)
+    for x in (30, 84, 138) for y in (56.1, 60, 75) for z in (20, 43, 60)
+)
+checks["storage_rounded_corners"] = (
+    not bin_shape.isInside(App.Vector(1, 25, 67), 1e-6, False)
+    and bin_shape.isInside(App.Vector(12, 25, 66), 1e-6, False)
+)
+stored_king = Part.makeCylinder(10, 50, App.Vector(84, 5.1, 40), App.Vector(0, 1, 0))
+checks["storage_fits_king_upright"] = bin_shape.common(stored_king).Volume < 1e-6
+placed_bin = doc.getObject("StorageBox_01").Shape
+placed_marker = doc.getObject("LastMoveMarker_01").Shape
+board_solids = Part.makeCompound([o.Shape for o in doc.getObject("BlackParts").Group])
+checks["storage_no_board_collision"] = placed_bin.common(board_solids).Volume < 1e-6
+insertion = Part.makeCylinder(10, 150, App.Vector(112, -70.9, 53), App.Vector(0, 1, 0))
+checks["king_top_insertion_clear"] = (
+    placed_bin.common(insertion).Volume < 1e-6
+    and board_solids.common(insertion).Volume < 1e-6
+)
+checks["marker_clear_of_board_and_box"] = (
+    placed_marker.common(board_solids).Volume < 1e-6
+    and placed_marker.common(placed_bin).Volume < 1e-6
+)
+pieces = Part.makeCompound([
+    Part.makeCylinder(10, 50, App.Vector(x, y + 5, 24), App.Vector(0, 1, 0))
+    for x in (14, 42) for y in (0, -61)
+])
+checks["marker_clear_of_piece_cylinders"] = placed_marker.common(pieces).Volume < 1e-6
+insertion_sweep = Part.makeBox(6, 5, 34, App.Vector(25, 0, 0))
+checks["marker_slide_in_path_clear"] = placed_marker.common(insertion_sweep).Volume < 1e-6
+checks["marker_has_upper_and_lower_jaws"] = all(
+    placed_marker.isInside(App.Vector(28, y, 30), 1e-6, False) for y in (-1, 6)
+)
+checks["marker_text_engraved"] = (
+    marker.FaceText == "LAST MOVE"
+    and len([f for f in marker.Shape.Faces
+             if abs(f.BoundBox.ZMin - 8.8) < 1e-5 and abs(f.BoundBox.ZMax - 8.8) < 1e-5]) == 8
+)
+clips = list(doc.getObject("ConnectorParts").Group) + list(doc.getObject("StorageConnectorParts").Group)
+checks["all_clips_clear_of_mating_solids"] = all(
+    o.Shape.common(board_solids).Volume < 1e-6 and o.Shape.common(placed_bin).Volume < 1e-6
+    for o in clips
+)
+checks["storage_clips_bridge_seam"] = all(
+    o.Shape.BoundBox.YMin < -19 and o.Shape.BoundBox.YMax > 19
+    for o in doc.getObject("StorageConnectorParts").Group
+)
+checks["exported_accessories_watertight"] = True
+checks["printable_accessories_fit_a1_mini"] = True
+for filename in ("last_move_marker.stl", "storage_box.stl"):
+    mesh = Mesh.Mesh(os.path.join(ROOT, "exports", filename))
+    checks["exported_accessories_watertight"] &= mesh.isSolid() and mesh.Volume > 0
+    checks["printable_accessories_fit_a1_mini"] &= all(
+        getattr(mesh.BoundBox, a + "Length") <= 180.01 for a in "XYZ") and abs(mesh.BoundBox.ZMin) < 0.01
+with open(os.path.join(ROOT, "verification_results.json"), "w", encoding="utf-8") as fh:
+    json.dump(checks, fh, ensure_ascii=False, indent=2)
 print(json.dumps(checks, ensure_ascii=False, indent=2))
 if not all(v for k, v in checks.items() if isinstance(v, bool)):
     raise RuntimeError("chess board verification failed")
